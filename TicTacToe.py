@@ -33,8 +33,38 @@ class TicTacToe:
         else:
             return True
 
+    def checkEndGame(self):
+        if self.checkCol() and self.checkDia() or self.checkRow():
+            return True
+        for move in self._state:
+            if move == " " or move == "":
+                return False
+        return True
+
+    def checkRow(self):
+        state = self._state
+        for i in range(3):
+            if (state[3 * i] == state[3 * i + 1] == state[3 * i + 2]) and state[3 * i] != " ":
+                return True
+        return False
+
+    def checkCol(self):
+        state = self._state
+        for i in range(3):
+            if state[i] == state[i + 3] == state[i + 6] and state[i] != " ":
+                return True
+        return False
+
+    def checkDia(self):
+        state = self._state
+        if ((state[0] == state[4] == state[8]) or (state[2] == state[4] == state[6])) and state[4] != " ":
+            return True
+        return False
+
 
 if __name__ == "__main__":
     ticTacToe = TicTacToe()
-    ticTacToe.importBoard(["", "", "X", "X", "O", "", "", "", "X"])
-    print(ticTacToe.validateMove(9))
+    ticTacToe.importBoard(["X", "O", "X", "X", "", "O", "X", "X", "X"])
+    print("checkEndGame", ticTacToe.checkEndGame())
+    move = 9
+    print(f"validateMove({move})", ticTacToe.validateMove(9))
